@@ -316,11 +316,6 @@ The safety layer is intentionally lightweight and designed for demonstration/eva
 - Observability dashboards
 - Deployment optimization
 
----
-
-# 🎥 Demo
-
-Demo Video: YOUR_LOOM_LINK
 
 ---
 
