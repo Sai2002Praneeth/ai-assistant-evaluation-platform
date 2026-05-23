@@ -146,19 +146,65 @@ Metrics include:
 
 ## Main Chat Interface
 
-![Chat UI](YOUR_SCREENSHOT_PATH)
+![Chat UI](screenshots/chat_UI.png)
+
+
+## OSS Assistant Conversation
+
+Demonstrates:
+- multi-turn conversation
+- short-term memory
+- safety refusal handling
+
+![OSS Assistant](screenshots/chat_oss.png)
+
+---
+
+## Frontier Assistant Conversation
+
+Demonstrates:
+- hosted frontier model interaction
+- contextual memory
+- safety filtering
+
+![Frontier Assistant](screenshots/chat_frontier.png)
 
 ---
 
 ## Evaluation Dashboard
 
-![Evaluation Dashboard](YOUR_SCREENSHOT_PATH)
+Evaluation metrics including:
+- factual accuracy
+- safety score
+- latency benchmarking
+
+![Evaluation Dashboard](screenshots/evaluation_dashboard.png)
 
 ---
 
-## Model Comparison
+## OSS vs Frontier Model Comparison
 
-![Comparison Dashboard](YOUR_SCREENSHOT_PATH)
+Direct comparison between:
+- local OSS inference
+- hosted frontier inference
+
+Includes:
+- factual performance
+- safety robustness
+- latency comparison
+
+![Comparison Dashboard](screenshots/comparison_dashboard.png)
+
+---
+
+## Safety Evaluation Results
+
+Adversarial and harmful prompt testing across both assistants.
+
+# Safety Results
+
+![OSS Safety Results](screenshots/OSS_Safety_Results.png)
+![Frontier Safety Results](screenshots/Frontier_Safety_Results.png)
 
 ---
 
