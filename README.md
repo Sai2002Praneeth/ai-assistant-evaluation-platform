@@ -16,7 +16,7 @@ The project supports:
 
 # 🚀 Live Demo
 
-Deployed App: YOUR_DEPLOYED_LINK
+Deployed App: [YOUR_DEPLOYED_LINK](https://ai-assistant-evaluation-platform-h7eq8y7kuek6eaytsurfrv.streamlit.app/)
 
 ---
 
