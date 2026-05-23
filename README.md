@@ -16,7 +16,7 @@ The project supports:
 
 # 🚀 Live Demo
 
-Deployed App: [YOUR_DEPLOYED_LINK](https://ai-assistant-evaluation-platform-h7eq8y7kuek6eaytsurfrv.streamlit.app/)
+Deployed App: [AI Assistant Evaluation Platform](https://ai-assistant-evaluation-platform-h7eq8y7kuek6eaytsurfrv.streamlit.app/)
 
 ---
 
@@ -326,7 +326,7 @@ Demo Video: YOUR_LOOM_LINK
 
 # 📄 Evaluation Report
 
-Report PDF: YOUR_REPORT_LINK
+Report PDF: [EVALUATION_REPORT](reports/Evaluation_Report.pdf)
 
 ---
 
@@ -334,6 +334,6 @@ Report PDF: YOUR_REPORT_LINK
 
 Sai Praneeth
 
-- GitHub: YOUR_GITHUB
-- LinkedIn: YOUR_LINKEDIN
+- GitHub: [GITHUB](https://github.com/Sai2002Praneeth)
+- LinkedIn: [LINKEDIN](https://www.linkedin.com/in/saipraneeth2002/)
 ```

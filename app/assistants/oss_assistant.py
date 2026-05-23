@@ -1,59 +1,28 @@
-from groq import Groq
-from memory.conversation_memory import ConversationMemory
-import os
-
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 
 class OSSAssistant:
-
     def __init__(self):
+        self.model_name = "Qwen/Qwen2.5-0.5B-Instruct"
 
-        self.client = Groq(
-            api_key=os.getenv("GROQ_API_KEY")
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+
+        self.model = AutoModelForCausalLM.from_pretrained(
+            self.model_name,
+            torch_dtype=torch.float32
         )
 
-        self.memory = ConversationMemory()
+    def generate_response(self, prompt):
+        inputs = self.tokenizer(prompt, return_tensors="pt")
 
-    def generate_response(
-        self,
-        prompt,
-        history=None
-    ):
-
-        messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a helpful open-source AI assistant."
-                )
-            }
-        ]
-
-        if history:
-
-            for msg in history:
-
-                messages.append({
-                    "role": msg["role"],
-                    "content": msg["content"]
-                })
-
-        messages.append({
-            "role": "user",
-            "content": prompt
-        })
-
-        completion = (
-            self.client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=messages,
-                temperature=0.7
-            )
+        outputs = self.model.generate(
+            **inputs,
+            max_new_tokens=100
         )
 
-        response = (
-            completion
-            .choices[0]
-            .message.content
+        response = self.tokenizer.decode(
+            outputs[0],
+            skip_special_tokens=True
         )
 
         return response
