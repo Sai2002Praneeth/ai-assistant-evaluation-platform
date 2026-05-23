@@ -9,8 +9,7 @@ class OSSAssistant:
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
 
         self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_name,
-            torch_dtype=torch.float32
+            self.model_name
         )
 
     def generate_response(self, prompt, history=None):
