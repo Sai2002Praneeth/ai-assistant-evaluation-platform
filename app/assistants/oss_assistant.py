@@ -1,5 +1,5 @@
 from groq import Groq
-from app.memory.conversation_memory import ConversationMemory
+from memory.conversation_memory import ConversationMemory
 import os
 
 
