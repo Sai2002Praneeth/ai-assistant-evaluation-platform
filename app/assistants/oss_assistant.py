@@ -4,33 +4,56 @@ import os
 
 
 class OSSAssistant:
+
     def __init__(self):
-        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+        self.client = Groq(
+            api_key=os.getenv("GROQ_API_KEY")
+        )
+
         self.memory = ConversationMemory()
 
-    def generate_response(self, user_input):
-        self.memory.add_message("user", user_input)
+    def generate_response(
+        self,
+        prompt,
+        history=None
+    ):
 
         messages = [
             {
                 "role": "system",
                 "content": (
-                    "You are a helpful open-source AI assistant. "
-                    "Maintain conversational context and answer clearly."
-                ),
+                    "You are a helpful open-source AI assistant."
+                )
             }
         ]
 
-        messages.extend(self.memory.get_messages())
+        if history:
 
-        completion = self.client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=messages,
-            temperature=0.7,
+            for msg in history:
+
+                messages.append({
+                    "role": msg["role"],
+                    "content": msg["content"]
+                })
+
+        messages.append({
+            "role": "user",
+            "content": prompt
+        })
+
+        completion = (
+            self.client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=messages,
+                temperature=0.7
+            )
         )
 
-        response = completion.choices[0].message.content
-
-        self.memory.add_message("assistant", response)
+        response = (
+            completion
+            .choices[0]
+            .message.content
+        )
 
         return response
