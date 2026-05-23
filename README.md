@@ -146,7 +146,7 @@ Metrics include:
 
 ## Main Chat Interface
 
-![Chat UI](screenshots/chat_UI.png)
+![Chat UI](screenshots/chat_ui.png)
 
 
 ## OSS Assistant Conversation
