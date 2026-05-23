@@ -1,70 +1,36 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
+from groq import Groq
+from app.memory.conversation_memory import ConversationMemory
+import os
 
 
 class OSSAssistant:
-
     def __init__(self):
+        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        self.memory = ConversationMemory()
 
-        self.model_name = "Qwen/Qwen2.5-0.5B-Instruct"
-
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name
-        )
-
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_name,
-            torch_dtype=torch.float32
-        )
-
-        self.device = "cpu"
-
-        self.model.to(self.device)
-
-    def generate_response(self, prompt, history=None):
+    def generate_response(self, user_input):
+        self.memory.add_message("user", user_input)
 
         messages = [
             {
                 "role": "system",
-                "content": "You are a helpful AI assistant."
+                "content": (
+                    "You are a helpful open-source AI assistant. "
+                    "Maintain conversational context and answer clearly."
+                ),
             }
         ]
 
-        if history:
-            messages.extend(history)
+        messages.extend(self.memory.get_messages())
 
-        messages.append({
-            "role": "user",
-            "content": prompt
-        })
-
-        text = self.tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True
+        completion = self.client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages,
+            temperature=0.7,
         )
 
-        inputs = self.tokenizer(
-            text,
-            return_tensors="pt"
-        )
+        response = completion.choices[0].message.content
 
-        inputs = {
-            key: value.to(self.device)
-            for key, value in inputs.items()
-        }
+        self.memory.add_message("assistant", response)
 
-        outputs = self.model.generate(
-            **inputs,
-            max_new_tokens=120,
-            temperature=0.7
-        )
-
-        generated_ids = outputs[0][inputs["input_ids"].shape[1]:]
-
-        response = self.tokenizer.decode(
-            generated_ids,
-            skip_special_tokens=True
-        )
-
-        return response.strip()
+        return response
